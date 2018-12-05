@@ -48,7 +48,7 @@
 <nav class="pagination">
   <#-- 上一页 -->
   <#if 1 != paginationPageNums?first>
-    <a href="${servePath}${path}/${paginationPreviousPageNum}" class="extend iconfont icon-xiangzuo1 itip" id="prev_page" lang="${previousPageLabel}"></a>
+    <a href="${servePath}${path}?p=${paginationPreviousPageNum}" class="extend iconfont icon-xiangzuo1 itip" id="prev_page" lang="${previousPageLabel}"></a>
     <a class="page-num" href="${servePath}${path}">1</a> ...
   </#if>
   <#list paginationPageNums as paginationPageNum>
@@ -60,13 +60,13 @@
       <a class="page-num" href="${path}/">${paginationPageNum}</a>
 	<#-- 其他页 -->
     <#else>
-      <a class="page-num" href="${path}/${paginationPageNum}">${paginationPageNum}</a>
+      <a class="page-num" href="${path}?p=${paginationPageNum}">${paginationPageNum}</a>
     </#if>
   </#list>
   <#-- 下一页 -->
   <#if paginationPageNums?last != paginationPageCount> ...
-    <a href="${servePath}${path}/${paginationPageCount}" class="page-num">${paginationPageCount}</a>
-    <a href="${servePath}${path}/${paginationNextPageNum}" class="extend iconfont icon-xiangyou2 itip" id="next_page" lang="${nextPagePabel}"></a>
+    <a href="${servePath}${path}?p=${paginationPageCount}" class="page-num">${paginationPageCount}</a>
+    <a href="${servePath}${path}?p=${paginationNextPageNum}" class="extend iconfont icon-xiangyou2 itip" id="next_page" lang="${nextPagePabel}"></a>
   </#if>
 </nav>
 </#if>

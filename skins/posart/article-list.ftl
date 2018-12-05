@@ -41,18 +41,18 @@ ${topArticleLabel}
 <#if 0 != paginationPageCount>
 <ol class="page-navigator">
     <#if 1 != paginationPageNums?first>
-    <li><a id="previousPage" href="${servePath}${path}/${paginationPreviousPageNum}"
+    <li><a id="previousPage" href="${servePath}${path}?p=${paginationPreviousPageNum}"
            title="${previousPageLabel}"><</a></li>
     </#if>
     <#list paginationPageNums as paginationPageNum>
     <#if paginationPageNum == paginationCurrentPageNum>
     <li class="current"><a href="#">${paginationPageNum}</a></li>
     <#else>
-    <li><a href="${servePath}${path}/${paginationPageNum}">${paginationPageNum}</a></li>
+    <li><a href="${servePath}${path}?p=${paginationPageNum}">${paginationPageNum}</a></li>
     </#if>
     </#list>
     <#if paginationPageNums?last != paginationPageCount>
-    <li><a id="nextPage" href="${servePath}${path}/${paginationNextPageNum}" title="${nextPagePabel}">></a></li>
+    <li><a id="nextPage" href="${servePath}${path}?p=${paginationNextPageNum}" title="${nextPagePabel}">></a></li>
     </#if>
 </ol>	
 </#if>

@@ -43,19 +43,19 @@
 <div class="pagination">
 <span class="pages">${paginationCurrentPageNum}/${paginationPageCount}</span>
 <#if 1 != paginationPageNums?first>
-<a href="${staticServePath}${path}/1">1st</a>
-<a href="${staticServePath}${path}/${paginationPreviousPageNum}">${TitelNO1}</a>
+<a href="${staticServePath}${path}">1st</a>
+<a href="${staticServePath}${path}?p=${paginationPreviousPageNum}">${TitelNO1}</a>
 </#if>
 <#list paginationPageNums as paginationPageNum>
 <#if paginationPageNum == paginationCurrentPageNum>
 <span class="current">${paginationPageNum}</span>
 <#else>
-<a title="${paginationPageNum}" href="${staticServePath}${path}/${paginationPageNum}">${paginationPageNum}</a>
+<a title="${paginationPageNum}" href="${staticServePath}${path}?p=${paginationPageNum}">${paginationPageNum}</a>
 </#if>
 </#list>
 <#if paginationPageNums?last != paginationPageCount>
-<a href="${staticServePath}${path}/${paginationNextPageNum}">${TitelNO}</a>
-<a title="Last ${TitelNO}" href="${staticServePath}${path}/${paginationPageCount}">Last ${TitelNO}</a>
+<a href="${staticServePath}${path}?p=${paginationNextPageNum}">${TitelNO}</a>
+<a title="Last ${TitelNO}" href="${staticServePath}${path}?p=${paginationPageCount}">Last ${TitelNO}</a>
 </#if>
 </div>
 </#if>
