@@ -1,3 +1,22 @@
+<#--
+
+    Solo - A small and beautiful blogging system written in Java.
+    Copyright (c) 2010-2019, b3log.org & hacpai.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+-->
 <#macro comments commentList article>
 <div id="ajax_comments_wrapper">
     <div class="comstyle">
@@ -9,7 +28,7 @@
                 <#list commentList as comment>
                 <li id="${comment.oId}">
                     <cite>
-                        <img data-id="${comment.oId}" onclick="replyTo('${comment.oId}')" 
+                        <img data-id="${comment.oId}" onclick="page.toggleEditor('${comment.oId}', '${comment.commentName}')"
                              class="atreply" 
                              title="${ClickToReply} ${comment.commentName}" 
                              src="${staticServePath}/skins/${skinDirName}/images/reply.png" 
@@ -47,50 +66,8 @@
     </div>
 	<#if article.commentable>
     <div id="respond" class="comstyle">Leave <span>Comments</span> Here...</div>
-    <div id="commentForm" class="reply">
-        <div class="friendly">
-            <p>
-                <label>
-                    ${commentNameLabel}
-                </label>
-                <input type="text" id="commentName" class="text" size="22" tabindex="1" />
-                <span class="tips">${Required}</span>
-            </p>
-            <p>
-                <label>
-                    ${commentEmailLabel}
-                </label>
-                <input type="text" id="commentEmail" class="text" size="22" tabindex="1" />
-                <span class="tips">${Required}&amp;${Secrecy}</span>
-            </p>
-            <p>
-                <label>
-                    ${commentURLLabel}
-                </label>
-                <input type="text" id="commentURL" class="text" size="22" tabindex="1" />
-                <span class="tips">${WithYou}</span>
-            </p>
-            <p id="checkarea">
-                    <label>
-                        Code  
-                    </label>
-                    <input type="text" id="commentValidate" class="text" />
-                    <span class="tips" style="background: none;border: none;">
-                    <img id="captcha" alt="validate" src="${staticServePath}/captcha.do" />
-                    </span>
-            </p>
-        </div>
-        <p>
-            <textarea rows="10" id="comment"  name="comment" cols="100%" tabindex="4" onkeyup="javascript:return ctrlEnter(event);"></textarea>
-            <span class="tips" style="white-space: nowrap; top: 93px; left: 506px;">${QuickSubmission}</span>
-        </p>
-        <p>
-            <button id="submitCommentButton" onclick="page.submitComment();" 
-                    style="border-radius: 7px; margin-top: 12px;">
-                ${submmitCommentLabel}
-            </button>
-            <span id="commentErrorTip"></span>
-        </p>
+    <div class="reply">
+        <textarea rows="3" placeholder="${postCommentsLabel}" id="comment"  name="comment" tabindex="4"></textarea>
     </div>
 	<#else>
 	    <div id="respond" class="comstyle">The <span>Comments</span> Closed...</div>
@@ -105,64 +82,4 @@
         <li>${Endnotes9}</li>
     </ul>
 </div>
-</#macro>
-
-<#macro comment_script oId>
-<script type="text/javascript" src="${staticServePath}/js/page${miniPostfix}.js?${staticResourceVersion}" charset="utf-8"></script>
-<script type="text/javascript">
-    var page = new Page({
-        "nameTooLongLabel": "${nameTooLongLabel}",
-        "mailCannotEmptyLabel": "${mailCannotEmptyLabel}",
-        "mailInvalidLabel": "${mailInvalidLabel}",
-        "commentContentCannotEmptyLabel": "${commentContentCannotEmptyLabel}",
-        "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}",
-        "captchaErrorLabel": "${captchaErrorLabel}",
-        "loadingLabel": "${loadingLabel}",
-        "oId": "${oId}",
-        "skinDirName": "${skinDirName}",
-        "blogHost": "${blogHost}",
-        "randomArticles1Label": "${randomArticles1Label}",
-        "externalRelevantArticles1Label": "${externalRelevantArticles1Label}"
-    });
-
-    var addComment = function (result, state) {
-        var name = result.replyNameHTML;
-        if ($("#commentURL" + state).val().replace(/\s/g, "") === "") {
-            name = $("#commentName" + state).val();
-        }
-        var commentHTML =  '<ol class="commentlist">'
-            + '<li class="alt altline">'
-            + '<cite>' + name +
-            '&nbsp;/&nbsp;<small>' + result.commentDate.substr(11, 8) + '&nbsp;@&nbsp;' + result.commentDate.substring(0, 10) + '</small></cite>'
-            + '<div class="lovatar">'
-            + '<img src="' + result.commentThumbnailURL
-            + '" alt="leehow" class="gravatar" width="48" height="48">'
-            + '</div>'
-            + '<div class="list">'
-            + '<p>'
-            + Util.replaceEmString($("#comment" + state).val().replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g,"<br/>"))
-            + '</p>'
-            + '</div></li></ol>';
-        return commentHTML;
-    }
-
-    var replyTo = function (id) {
-        var commentFormHTML = "<div class='reply' id='replyForm'>";
-        page.addReplyForm(id, commentFormHTML, "</div>");
-        
-        $("#replyForm span").fadeOut("fast");
-        $("#commentErrorTipReply").fadeIn("fast");
-        $("#replyForm input,#replyForm textarea").focus(function() {
-            $(this).next("span").fadeIn("fast")
-        }),
-        $("#replyForm input,#replyForm textarea").blur(function() {
-            $(this).next("span").fadeOut("fast")
-        });
-    };
-    
-    (function () {
-        page.load();
-            <#nested>
-        })();
-</script>
 </#macro>

@@ -1,3 +1,20 @@
+/*
+ * Solo - A small and beautiful blogging system written in Java.
+ * Copyright (c) 2010-2019, b3log.org & hacpai.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 (function() {
     var wemsg = function(smsg) {
             layer.msg(smsg, { time: 2000 });
@@ -9,7 +26,7 @@
             Cookie.createCookie(name, value, days);
         };
     if ($("body").width() > 750 && xcookie("showTips") == "" && xcookie("isShowTips") == "" && top.location.pathname == "/" && navigator.cookieEnabled) {
-        layer.confirm(`客官您好，<b>${ $("#logofont").text() }</b>欢迎您的访问，已默认为您开启图标悬浮提示，是否需要显示悬浮提示？`, {
+        layer.confirm('客官您好，<b> ' + $("#logofont").text() + ' </b>欢迎您的访问，已默认为您开启图标悬浮提示，是否需要显示悬浮提示？', {
             btn: ['留着吧', '消失一周', '再想想'],
             closeBtn: false,
             time: 9999,

@@ -1,5 +1,25 @@
+<#--
+
+    Solo - A small and beautiful blogging system written in Java.
+    Copyright (c) 2010-2019, b3log.org & hacpai.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+-->
 <#include "macro-head.ftl">
 <#include "macro-comments.ftl">
+<#include "../../common-template/macro-comment_script.ftl">
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,7 +46,7 @@
                     <div class="arrow-right"></div>
                     <div class="clear"></div>
 					<div>
-			<img width="160px" height="160px" src="${staticServePath}/images/default-user-thumbnail.png" onload="this.onload=null;this.src=getIcon('${article.articleAuthorEmail}')+'&d=404';" onerror="this.src='${staticServePath}/images/default-user-thumbnail.png';"> 
+			<img width="160px" height="160px" src="${article.authorThumbnailURL}" onerror="this.src='${staticServePath}/images/default-user-thumbnail.png';">
 		</div>
                     <ul>
                         <li>
@@ -111,7 +131,7 @@
         <div class="footer">
             <#include "footer.ftl">
         </div>
-        <@comment_script oId=article.oId>
+        <@comment_script oId=article.oId commentable=article.commentable>
         page.tips.externalRelevantArticlesDisplayCount = "${externalRelevantArticlesDisplayCount}";
         <#if 0 != randomArticlesDisplayCount>
         page.loadRandomArticles();
